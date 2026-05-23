@@ -4,8 +4,10 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Calendar } from "lucide-react";
 
+import { getBackendUrl } from "@/lib/api";
+
 export default function SchedulePage() {
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8000";
+  const backendUrl = getBackendUrl();
   
   const [topic, setTopic] = useState("John Doe's Zoom Meeting");
   const [date, setDate] = useState("");

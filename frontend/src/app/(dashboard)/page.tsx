@@ -5,8 +5,10 @@ import { Video, Plus, Calendar } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+import { getBackendUrl } from "@/lib/api";
+
 export default function DashboardPage() {
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8000";
+  const backendUrl = getBackendUrl();
   
   const [time, setTime] = useState<Date | null>(null);
   const [upcoming, setUpcoming] = useState<any[]>([]);

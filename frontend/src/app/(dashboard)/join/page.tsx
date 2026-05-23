@@ -4,8 +4,10 @@ import React, { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Video } from "lucide-react";
 
+import { getBackendUrl } from "@/lib/api";
+
 function JoinPageContent() {
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8000";
+  const backendUrl = getBackendUrl();
   
   const searchParams = useSearchParams();
   const [meetingId, setMeetingId] = useState(searchParams?.get("id") || "");

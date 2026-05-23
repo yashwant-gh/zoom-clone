@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+import { getWsUrl } from "@/lib/api";
 
 interface PeerConnection {
   peerConnection: RTCPeerConnection;
@@ -77,21 +78,7 @@ export function useWebRTC(roomId: string, userId: string, userName: string) {
   const connectToSocket = useCallback(async (stream: MediaStream | null) => {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) return;
     
-    const getWsUrl = () => {
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-      if (backendUrl) {
-        return backendUrl.replace(/^http/, "ws");
-      }
-      if (typeof window !== "undefined") {
-        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-        const host = window.location.hostname;
-        return `${protocol}//${host}:8000`;
-      }
-      return "ws://localhost:8000";
-    };
-
-    const wsBaseUrl = getWsUrl();
-    const socketUrl = `${wsBaseUrl}/ws/meeting/${roomId}/`;
+    const socketUrl = getWsUrl(roomId);
     
     const socket = new WebSocket(socketUrl);
     socketRef.current = socket;
