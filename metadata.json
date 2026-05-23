@@ -1,0 +1,1 @@
+{"name":"Zoom Clone","description":"A modern video conferencing platform inspired by Zoom, featuring real-time WebRTC video, chat, scheduling, and instant meetings.","requestFramePermissions":["camera","microphone"],"majorCapabilities":["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]}

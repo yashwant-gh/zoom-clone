@@ -1,0 +1,4 @@
+django>=5.0,<6.0
+daphne>=4.1.0,<5.0
+channels>=4.0.0,<5.0
+django-cors-headers>=4.3.0,<5.0
