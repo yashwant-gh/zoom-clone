@@ -5,6 +5,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Video } from "lucide-react";
 
 function JoinPageContent() {
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8000";
+  
   const searchParams = useSearchParams();
   const [meetingId, setMeetingId] = useState(searchParams?.get("id") || "");
   const [name, setName] = useState("John Doe");
@@ -17,7 +19,7 @@ function JoinPageContent() {
     const formattedId = meetingId.replace(/[^0-9-]/g, '');
     
     try {
-      const res = await fetch("/api/meetings/validate", {
+      const res = await fetch(`${backendUrl}/api/meetings/validate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ meetingId: formattedId })

@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8000";
+  
   const [time, setTime] = useState<Date | null>(null);
   const [upcoming, setUpcoming] = useState<any[]>([]);
   const [recent, setRecent] = useState<any[]>([]);
@@ -18,13 +20,13 @@ export default function DashboardPage() {
   }, []);
 
   useEffect(() => {
-    fetch('/api/meetings/upcoming').then(r => r.json()).then(data => setUpcoming(data.meetings || []));
-    fetch('/api/meetings/recent').then(r => r.json()).then(data => setRecent(data.meetings || []));
-  }, []);
+    fetch(`${backendUrl}/api/meetings/upcoming`).then(r => r.json()).then(data => setUpcoming(data.meetings || []));
+    fetch(`${backendUrl}/api/meetings/recent`).then(r => r.json()).then(data => setRecent(data.meetings || []));
+  }, [backendUrl]);
 
   const startInstantMeeting = async () => {
     try {
-      const res = await fetch('/api/meetings/instant', {
+      const res = await fetch(`${backendUrl}/api/meetings/instant`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ hostName: "Zoom Host" })

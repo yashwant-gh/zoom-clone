@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { Calendar } from "lucide-react";
 
 export default function SchedulePage() {
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8000";
+  
   const [topic, setTopic] = useState("John Doe's Zoom Meeting");
   const [date, setDate] = useState("");
   const [duration, setDuration] = useState("60");
@@ -17,7 +19,7 @@ export default function SchedulePage() {
     const dt = new Date(date);
     
     // Schedule API Call
-    const res = await fetch("/api/meetings/schedule", {
+    const res = await fetch(`${backendUrl}/api/meetings/schedule`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
